@@ -30,7 +30,6 @@ cd PATH
 ### Merge SRTM tiles.
 gdal_merge.py -co BIGTIFF=YES -co COMPRESS=LZW -o output-data/sw-bangladesh-dem.tif $(ls input-data/\*.hgt)
 
-### Using QGIS 3, filled sinks with the SAGA Sink Fill (Wang & Liu) tool (processing toolbox), saving result to memory, then exported to sw-bangladesh-dem-filled.tif. Reviewing the result, watercourses appear to now have an elevation of less than 1.0 (these were mostly 0 in the SRTM input).
 
 ### Set values <1 as water, to extract watercourses (only needed for visualization).
 gdal_calc.py --calc=expression --calc "(A < 1)" --co BIGTIFF=YES --co COMPRESS=LZW  --outfile=output-data/sw-bangladesh-water.tif -A output-data/sw-bangladesh-dem-filled.tif
@@ -48,7 +47,7 @@ gdal_calc.py --calc=expression --calc "(A <= 3)" --co BIGTIFF=YES --co COMPRESS=
 
 ## 3. Spatial analysis.
 
-Ran Python script to create buffered points in a virtualenv with GDAL installed as:
+Run Python script to create buffered points in a virtualenv with GDAL installed as:
 
 source ~/workspace/envs/gis/bin/activate
 
